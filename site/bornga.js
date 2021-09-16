@@ -3,6 +3,8 @@ const expressHandlebars = require("express-handlebars");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const fortunes = ["a cookie", "b cookie", "c cookie"];
+
 app.engine(
 	"handlebars",
 	expressHandlebars({
@@ -13,7 +15,10 @@ app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => res.render("home"));
 
-app.get("/about", (req, res) => res.render("about"));
+app.get("/about", (req, res) => {
+	const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+	res.render("about", { fortune: randomFortune });
+});
 
 // custom 404 page
 app.use((req, res) => {
