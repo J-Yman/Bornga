@@ -1,30 +1,31 @@
 const express = require("express");
+const expressHandlebars = require("express-handlebars");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-	res.type("text/plain");
-	res.send("welcome to bornga");
-});
+app.engine(
+	"handlebars",
+	expressHandlebars({
+		defaultLayout: "main",
+	})
+);
+app.set("view engine", "handlebars");
 
-app.get("/about", (req, res) => {
-	res.type("text/plain");
-	res.send("about bornga");
-});
+app.get("/", (req, res) => res.render("home"));
+
+app.get("/about", (req, res) => res.render("about"));
 
 // custom 404 page
 app.use((req, res) => {
-	res.type("text/plain");
 	res.status(404);
-	res.send("404 - Not Found");
+	res.render("404");
 });
 
 //custome 500 page
 app.use((err, req, rest, next) => {
 	console.error(err);
-	res.type("text/plain");
 	res.status(500);
-	res.send("500 - Server Eror");
+	res.render("500");
 });
 
 app.listen(port, () =>
