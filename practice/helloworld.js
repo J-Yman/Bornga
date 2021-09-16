@@ -37,5 +37,3 @@ server.listen(port, () =>
 		`server started on port ${port}; ` + "press Ctrl-C to teminate..."
 	)
 );
-
-// test
