@@ -3,6 +3,7 @@ const express = require("express");
 const expressHandlebars = require("express-handlebars");
 const app = express();
 const port = process.env.PORT || 3000;
+const handlers = requuire("./lib/handlers");
 
 app.engine(
 	"handlebars",
@@ -12,24 +13,15 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-app.get("/", (req, res) => res.render("home"));
+app.get("/", handlers.home);
 
-app.get("/about", (req, res) => {
-	res.render("about", { fortune: fortune.getFortune() });
-});
+app.get("/about", handlers.about);
 
 // custom 404 page
-app.use((req, res) => {
-	res.status(404);
-	res.render("404");
-});
+app.use((req, res) => handlers.notFound);
 
 //custome 500 page
-app.use((err, req, rest, next) => {
-	console.error(err);
-	res.status(500);
-	res.render("500");
-});
+app.use(handlers.serverError);
 
 app.listen(port, () =>
 	console.log(
