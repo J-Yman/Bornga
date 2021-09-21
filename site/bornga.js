@@ -1,4 +1,3 @@
-const fortune = require("./lib/fortune");
 const express = require("express");
 const expressHandlebars = require("express-handlebars");
 const app = express();
@@ -18,7 +17,7 @@ app.get("/", handlers.home);
 app.get("/about", handlers.about);
 
 // custom 404 page
-app.use((req, res) => handlers.notFound);
+app.use(handlers.notFound);
 
 //custome 500 page
 app.use(handlers.serverError);
