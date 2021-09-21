@@ -3,7 +3,7 @@ const express = require("express");
 const expressHandlebars = require("express-handlebars");
 const app = express();
 const port = process.env.PORT || 3000;
-const handlers = requuire("./lib/handlers");
+const handlers = require("./lib/handlers");
 
 app.engine(
 	"handlebars",
@@ -23,9 +23,13 @@ app.use((req, res) => handlers.notFound);
 //custome 500 page
 app.use(handlers.serverError);
 
-app.listen(port, () =>
-	console.log(
-		`Express started on http://localhost:${port} ;` +
-			"press Ctrl-C to terminate"
-	)
-);
+if (require.main === module) {
+	app.listen(port, () =>
+		console.log(
+			`Express started on http://localhost:${port} ;` +
+				"press Ctrl-C to terminate"
+		)
+	);
+} else {
+	module.exports = app;
+}
