@@ -16,6 +16,8 @@ app.set("view cache", true);
 
 app.get("/", handlers.home);
 
+app.get("/section-test", handlers.sectionTest);
+
 app.get("/about", handlers.about);
 
 app.get("/headers", (req, res) => {
