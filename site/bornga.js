@@ -10,7 +10,9 @@ app.engine(
 		defaultLayout: "main",
 	})
 );
+
 app.set("view engine", "handlebars");
+app.set("view cache", true);
 
 app.get("/", handlers.home);
 
